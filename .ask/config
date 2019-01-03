@@ -1,0 +1,33 @@
+{
+  "deploy_settings": {
+    "default": {
+      "skill_id": "amzn1.ask.skill.3aa9c9b3-5da3-42e9-8d1c-b69212cba6ac",
+      "was_cloned": true,
+      "merge": {},
+      "resources": {
+        "manifest": {
+          "eTag": "a05a90333b6ee50e10fc76ec7d02a2e5"
+        },
+        "interactionModel": {
+          "ja-JP": {
+            "eTag": "7174680182bcfba78347759f61066a46"
+          }
+        },
+        "lambda": [
+          {
+            "arn": "arn:aws:lambda:ap-northeast-1:952846470417:function:million-live-quiz",
+            "awsRegion": "ap-northeast-1",
+            "functionName": "million-live-quiz",
+            "alexaUsage": [
+              "custom/default"
+            ],
+            "revisionId": "8bb433e4-7659-4b68-8b2c-f8e9ec33d606",
+            "codeUri": "lambda/custom",
+            "handler": "index.handler",
+            "runtime": "nodejs8.10"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "ミリオンクイズ",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "SelectGenreIntent",
+          "slots": [
+            {
+              "name": "genre",
+              "type": "Genre"
+            }
+          ],
+          "samples": [
+            "{genre} がやりたい",
+            "{genre} のジャンル",
+            "{genre}",
+            "{genre} を選んで",
+            "{genre} のクイズ",
+            "{genre} を選択"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "name": {
+                "value": "ユニット"
+              }
+            },
+            {
+              "name": {
+                "value": "作曲家"
+              }
+            },
+            {
+              "name": {
+                "value": "キャラクター"
+              }
+            },
+            {
+              "name": {
+                "value": "声優",
+                "synonyms": [
+                  "せいゆう"
+                ]
+              }
+            }
+          ],
+          "name": "Genre"
+        }
+      ]
+    }
+  }
+}
