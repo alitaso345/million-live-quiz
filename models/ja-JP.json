@@ -20,52 +20,11 @@
           "samples": []
         },
         {
-          "name": "SelectGenreIntent",
-          "slots": [
-            {
-              "name": "genre",
-              "type": "Genre"
-            }
-          ],
+          "name": "QuizIntent",
           "samples": [
-            "{genre} のジャンルを選択",
-            "{genre} がやりたい",
-            "{genre} のジャンル",
-            "{genre}",
-            "{genre} を選んで",
-            "{genre} のクイズ",
-            "{genre} を選択"
-          ]
-        }
-      ],
-      "types": [
-        {
-          "values": [
-            {
-              "name": {
-                "value": "ユニット"
-              }
-            },
-            {
-              "name": {
-                "value": "作曲家"
-              }
-            },
-            {
-              "name": {
-                "value": "キャラクター"
-              }
-            },
-            {
-              "name": {
-                "value": "声優",
-                "synonyms": [
-                  "せいゆう"
-                ]
-              }
-            }
+            "クイズを開始"
           ],
-          "name": "Genre"
+          "slots": []
         }
       ]
     }
