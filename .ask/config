@@ -15,15 +15,15 @@
         },
         "lambda": [
           {
-            "arn": "arn:aws:lambda:ap-northeast-1:952846470417:function:million-live-quiz",
-            "awsRegion": "ap-northeast-1",
-            "functionName": "million-live-quiz",
             "alexaUsage": [
               "custom/default"
             ],
-            "revisionId": "8bb433e4-7659-4b68-8b2c-f8e9ec33d606",
+            "arn": "arn:aws:lambda:ap-northeast-1:952846470417:function:million-live-quiz",
+            "awsRegion": "ap-northeast-1",
             "codeUri": "lambda/custom",
+            "functionName": "million-live-quiz",
             "handler": "index.handler",
+            "revisionId": "3ba2a04f-beaa-4d49-b42d-dc747be1c92f",
             "runtime": "nodejs8.10"
           }
         ]
