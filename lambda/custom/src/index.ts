@@ -241,7 +241,7 @@ const getSpeechCon = (type: boolean) => {
 }
 
 const getAnswer = (item: ICharacter) =>
-  `${item.characterName}の声優は${item.voiceActorName}さんでした！`
+  `<sub alias="${item.characterKanaName}">${item.characterName}</sub>の声優は<sub alias="${item.voiceActorKanaName}">${item.voiceActorName}</sub>さんでした！`
 
 const getCurrentScore = (score: number) => `現在の正解スコアは${score}です。`
 
