@@ -21,12 +21,27 @@
         },
         {
           "name": "QuizIntent",
+          "slots": [],
           "samples": [
             "クイズを開始"
+          ]
+        },
+        {
+          "name": "AnswerInent",
+          "slots": [
+            {
+              "name": "voiceActor",
+              "type": "AMAZON.Actor"
+            }
           ],
-          "slots": []
+          "samples": [
+            "{voiceActor} ちゃん",
+            "{voiceActor} さん",
+            "{voiceActor}"
+          ]
         }
-      ]
+      ],
+      "types": []
     }
   }
 }
