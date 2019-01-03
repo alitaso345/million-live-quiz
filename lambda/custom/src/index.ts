@@ -5,6 +5,22 @@ const states = {
   START: `_START`,
   QUIZ: `_QUIZ`
 }
+const speechConsCorrect = [
+  'やった',
+  'やったあ',
+  'おめでとう',
+  'イェイ',
+  'オーケー',
+  'オーケーです'
+]
+const speechConsWrong = [
+  'ドンマイ',
+  'あ〜あ',
+  'あちゃ',
+  'あちゃあ',
+  'あれれ',
+  'ううっ'
+]
 
 interface ICharacter {
   characterName: string
@@ -22,7 +38,7 @@ const LaunchRequestHandler: Alexa.RequestHandler = {
   },
   handle(handleInput) {
     const welcomeMessage =
-      'アイドルマスターミリオンライブにクイズで遊べるスキルです、「クイズを開始」と言ってみてください。'
+      'アイドルマスターミリオンライブに関するクイズで遊べるスキルです、「クイズを開始」と言ってみてください。'
     return handleInput.responseBuilder
       .speak(welcomeMessage)
       .reprompt(welcomeMessage)
@@ -59,6 +75,71 @@ const QuizHandler: Alexa.RequestHandler = {
   }
 }
 
+const QuizAnswerHandler = {
+  canHandle(handleInput) {
+    const attributes = handleInput.attributesManager.getSessionAttributes()
+    const request = handleInput.requestEnvelope.request
+    return (
+      attributes.state === states.QUIZ &&
+      request.type === 'IntentRequest' &&
+      request.intent.name === 'AnswerInent'
+    )
+  },
+  handle(handleInput) {
+    console.log('QiuzAnswerHandler')
+    const attributes = handleInput.attributesManager.getSessionAttributes()
+    const response = handleInput.responseBuilder
+
+    let speakOutput = ''
+    let repromptOutput = ''
+    const item = attributes.quizItem
+    const isCorrent = compareSlots(
+      handleInput.requestEnvelope.request.intent.slots,
+      item.voiceActorName
+    )
+
+    if (isCorrent) {
+      speakOutput = getSpeechCon(true)
+      attributes.quizeScore += 1
+      handleInput.attributesManager.setSessionAttributes(attributes)
+    } else {
+      speakOutput = getSpeechCon(false)
+    }
+
+    speakOutput += getAnswer(item)
+    let question = ''
+
+    if (attributes.counter < 5) {
+      speakOutput += getCurrentScore(attributes.quizeScore)
+      question = askQuestion(handleInput)
+      speakOutput += question
+      repromptOutput += question
+
+      return response
+        .speak(speakOutput)
+        .reprompt(repromptOutput)
+        .getResponse()
+    } else {
+      speakOutput += getFinalScore(attributes.quizeScore)
+      return response.speak(speakOutput).getResponse()
+    }
+  }
+}
+
+const SessionEndedRequestHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest'
+  },
+  handle(handlerInput) {
+    console.log(
+      `Session ended with reason: ${JSON.stringify(
+        handlerInput.requestEnvelope
+      )}`
+    )
+    return handlerInput.responseBuilder.getResponse()
+  }
+}
+
 const ErrorHandler: Alexa.ErrorHandler = {
   canHandle() {
     return true
@@ -72,10 +153,14 @@ const ErrorHandler: Alexa.ErrorHandler = {
 }
 
 export const handler = skillBuilder
-  .addRequestHandlers(LaunchRequestHandler, QuizHandler)
+  .addRequestHandlers(
+    LaunchRequestHandler,
+    QuizHandler,
+    QuizAnswerHandler,
+    SessionEndedRequestHandler
+  )
   .addErrorHandlers(ErrorHandler)
   .lambda()
-
 
 const askQuestion = handlerInput => {
   const random = getRandom(0, data.length - 1)
@@ -93,10 +178,31 @@ const askQuestion = handlerInput => {
   return question
 }
 
-const getQuestion = (counter: number, item: ICharacter): string => (
+const getQuestion = (counter: number, item: ICharacter): string =>
   `第${counter}問。${item.characterName}の声優は誰でしょう？`
-)
 
-const getRandom = (min: number, max: number): number => (
-  Math.floor((Math.random() * ((max - min) + 1)) + min)
-)
+const getRandom = (min: number, max: number): number =>
+  Math.floor(Math.random() * (max - min + 1) + min)
+
+const compareSlots = (slots, value) => {
+  console.log('compareSlots')
+  return slots['voiceActor'].value === value ? true : false
+}
+
+const getSpeechCon = (type: boolean) => {
+  console.log('getSpeechCon')
+  if (type)
+    return `<say-as interpret-as='interjection'>${
+      speechConsCorrect[getRandom(0, speechConsCorrect.length - 1)]
+    }! </say-as><break strength='strong'/>`
+  return `<say-as interpret-as='interjection'>${
+    speechConsWrong[getRandom(0, speechConsWrong.length - 1)]
+  }! </say-as><break strength='strong'/>`
+}
+
+const getAnswer = (item: ICharacter) =>
+  `${item.characterName}の声優は${item.voiceActorName}さんでした！`
+
+const getCurrentScore = (score: number) => `現在の正解スコアは${score}です。`
+
+const getFinalScore = (score: number) => `最終スコアは${score}です。`
