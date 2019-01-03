@@ -6,6 +6,15 @@ const states = {
   QUIZ: `_QUIZ`
 }
 
+interface ICharacter {
+  characterName: string
+  voiceActorName: string
+}
+
+const data: ICharacter[] = [
+  { characterName: '春日未来', voiceActorName: '山崎はるか' }
+]
+
 const LaunchRequestHandler: Alexa.RequestHandler = {
   canHandle(handlerInput) {
     const request = handlerInput.requestEnvelope.request
@@ -67,6 +76,27 @@ export const handler = skillBuilder
   .addErrorHandlers(ErrorHandler)
   .lambda()
 
+
 const askQuestion = handlerInput => {
-  return '第一問。春日未来の声優は誰でしょう？'
+  const random = getRandom(0, data.length - 1)
+  const item = data[random]
+
+  const attributes = handlerInput.attributesManager.getSessionAttributes()
+
+  attributes.selectedItemIndex = random
+  attributes.quizItem = item
+  attributes.counter += 1
+
+  handlerInput.attributesManager.setSessionAttributes(attributes)
+
+  const question = getQuestion(attributes.counter, item)
+  return question
 }
+
+const getQuestion = (counter: number, item: ICharacter): string => (
+  `第${counter}問。${item.characterName}の声優は誰でしょう？`
+)
+
+const getRandom = (min: number, max: number): number => (
+  Math.floor((Math.random() * ((max - min) + 1)) + min)
+)
