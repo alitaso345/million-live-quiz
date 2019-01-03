@@ -10,8 +10,8 @@
     "apis": {
       "custom": {
         "endpoint": {
-          "uri": "million-live-quiz",
-          "sourceDir": "lambda/custom"
+          "sourceDir": "lambda/custom",
+          "uri": "arn:aws:lambda:ap-northeast-1:952846470417:function:million-live-quiz"
         },
         "interfaces": []
       }
