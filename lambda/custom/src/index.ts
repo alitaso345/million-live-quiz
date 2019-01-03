@@ -226,12 +226,10 @@ const getRandom = (min: number, max: number): number =>
   Math.floor(Math.random() * (max - min + 1) + min)
 
 const compareSlots = (slots, value) => {
-  console.log('compareSlots')
   return slots['voiceActor'].value === value ? true : false
 }
 
 const getSpeechCon = (type: boolean) => {
-  console.log('getSpeechCon')
   if (type)
     return `<say-as interpret-as='interjection'>${
       speechConsCorrect[getRandom(0, speechConsCorrect.length - 1)]
