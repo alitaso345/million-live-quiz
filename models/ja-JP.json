@@ -28,6 +28,7 @@
             }
           ],
           "samples": [
+            "{genre} のジャンルを選択",
             "{genre} がやりたい",
             "{genre} のジャンル",
             "{genre}",
