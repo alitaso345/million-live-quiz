@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "alitaso345",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "ask-sdk-core": "^2.3.0",
+    "ask-sdk-model": "^1.11.1"
+  }
 }
