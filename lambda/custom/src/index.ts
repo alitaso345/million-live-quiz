@@ -1,6 +1,6 @@
 import * as Alexa from 'ask-sdk-core'
 const skillBuilder = Alexa.SkillBuilders.custom()
-const startQuizMessage = 'ミリオンライブの声優に関するクイズを10問出題します。'
+const startQuizMessage = 'ミリオンライブの声優に関するクイズを5問出題します。'
 const states = {
   START: `_START`,
   QUIZ: `_QUIZ`
