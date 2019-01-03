@@ -1,2 +1,3 @@
 node_modules/
 lambda/custom/index.js
+output.txt
