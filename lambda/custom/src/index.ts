@@ -159,7 +159,7 @@ const QuizAnswerHandler = {
           textContent: primaryText
         })
       }
-      return response.speak(speakOutput).getResponse()
+      return response.speak(speakOutput).withShouldEndSession(true).getResponse()
     }
   }
 }
