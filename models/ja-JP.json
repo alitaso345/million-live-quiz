@@ -20,6 +20,10 @@
           "samples": []
         },
         {
+          "name": "AMAZON.StartOverIntent",
+          "samples": []
+        },
+        {
           "name": "QuizIntent",
           "slots": [],
           "samples": [

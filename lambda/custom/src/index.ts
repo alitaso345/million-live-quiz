@@ -31,11 +31,10 @@ const LaunchRequestHandler: Alexa.RequestHandler = {
   },
   handle(handleInput) {
     const welcomeMessage =
-      'アイドルマスターミリオンライブに関するクイズで遊べるスキルです、「クイズを開始」と言ってみてください。'
+      'アイドルマスターミリオンライブのクイズで遊べるスキルです、「クイズを開始」と言うとスタートです。'
     return handleInput.responseBuilder
       .speak(welcomeMessage)
       .reprompt(welcomeMessage)
-      .withSimpleCard('ミリオンライブクイズ', welcomeMessage)
       .getResponse()
   }
 }
