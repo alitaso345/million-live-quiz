@@ -114,7 +114,9 @@ const QuizAnswerHandler = {
         .getResponse()
     } else {
       speakOutput += getFinalScore(attributes.quizeScore)
-      return response.speak(speakOutput).getResponse()
+      return response.speak(speakOutput)
+        .withSimpleCard('答え', getDisplayalbeAnswer(item))
+        .getResponse()
     }
   }
 }
