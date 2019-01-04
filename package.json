@@ -10,7 +10,7 @@
     "deploy:all": "ask deploy -t all",
     "deploy:skill": "ask deploy -t skill",
     "deploy:lambda": "ask deploy -t lambda",
-    "deploy:model": "ask deploy -t model",
+    "deploy:model": "ask deploy --force -t model",
     "lint": "tslint --project tslint.json",
     "lint:fix": "tslint --project tslint.json --fix"
   },
