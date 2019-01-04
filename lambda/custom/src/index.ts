@@ -6,7 +6,7 @@ const skillBuilder = Alexa.SkillBuilders.custom()
 const startQuizMessage = 'ミリオンライブの声優に関するクイズを5問出題します。'
 const welcomeMessage =
   'アイドルマスターミリオンライブのクイズで遊べるスキルです、「クイズを開始」と言うとスタートです。'
-const repromptSpeech = '他に知りたい声優さんはいますか？'
+const helpMessage = '「クイズを開始」というと、クイズをスタートできます。'
 const states = {
   START: `_START`,
   QUIZ: `_QUIZ`
@@ -219,6 +219,23 @@ const SessionEndedRequestHandler = {
   }
 }
 
+const HelpHandler: Alexa.RequestHandler = {
+  canHandle(handlerInput) {
+    const request = handlerInput.requestEnvelope.request
+    return (
+      request.type === 'IntentRequest' &&
+      request.intent.name === 'AMAZON.HelpIntent'
+    )
+  },
+  handle(handlerInput) {
+    console.log('Inside HelpHandler')
+    return handlerInput.responseBuilder
+      .speak(helpMessage)
+      .reprompt(helpMessage)
+      .getResponse()
+  }
+}
+
 const ErrorHandler: Alexa.ErrorHandler = {
   canHandle() {
     return true
@@ -235,6 +252,7 @@ export const handler = skillBuilder
   .addRequestHandlers(
     LaunchRequestHandler,
     QuizHandler,
+    HelpHandler,
     QuizAnswerHandler,
     DefinitionHandler,
     SessionEndedRequestHandler
