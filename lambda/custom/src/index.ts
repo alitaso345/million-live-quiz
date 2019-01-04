@@ -1,8 +1,12 @@
 import * as Alexa from 'ask-sdk-core'
+import { Slot } from 'ask-sdk-model'
 import { ICharacter } from './resources'
 import data from './data'
 const skillBuilder = Alexa.SkillBuilders.custom()
 const startQuizMessage = 'ミリオンライブの声優に関するクイズを5問出題します。'
+const welcomeMessage =
+  'アイドルマスターミリオンライブのクイズで遊べるスキルです、「クイズを開始」と言うとスタートです。'
+const repromptSpeech = '他に知りたい声優さんはいますか？'
 const states = {
   START: `_START`,
   QUIZ: `_QUIZ`
@@ -30,8 +34,6 @@ const LaunchRequestHandler: Alexa.RequestHandler = {
     return request.type === 'LaunchRequest'
   },
   handle(handleInput) {
-    const welcomeMessage =
-      'アイドルマスターミリオンライブのクイズで遊べるスキルです、「クイズを開始」と言うとスタートです。'
     return handleInput.responseBuilder
       .speak(welcomeMessage)
       .reprompt(welcomeMessage)
@@ -162,6 +164,47 @@ const QuizAnswerHandler = {
   }
 }
 
+const DefinitionHandler: Alexa.RequestHandler = {
+  canHandle(handleInput) {
+    const request = handleInput.requestEnvelope.request
+    const attributes = handleInput.attributesManager.getSessionAttributes()
+
+    return (
+      attributes.state !== states.QUIZ &&
+      request.type === 'IntentRequest' &&
+      request.intent.name === 'AnswerInent'
+    )
+  },
+  handle(handleInput) {
+    const response = handleInput.responseBuilder
+    const request = handleInput.requestEnvelope.request
+    const item =
+      request.type === 'IntentRequest' && getItem(request.intent.slots)
+    if (item && item[Object.getOwnPropertyNames(data[0])[0]] !== undefined) {
+      const character = item as ICharacter
+
+      if (supportsDisplay(handleInput)) {
+        const primaryText = new Alexa.PlainTextContentHelper()
+          .withPrimaryText(getTextDescription(character))
+          .getTextContent()
+        response.addRenderTemplateDirective({
+          type: 'BodyTemplate1',
+          token: 'Question',
+          backButton: 'HIDDEN',
+          textContent: primaryText
+        })
+      }
+      return response.speak(getSpeechDescription(character)).getResponse()
+    } else {
+      const str = item as string
+      return response
+        .speak(getBadAnswer(str))
+        .withShouldEndSession(true)
+        .getResponse()
+    }
+  }
+}
+
 const SessionEndedRequestHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest'
@@ -193,6 +236,7 @@ export const handler = skillBuilder
     LaunchRequestHandler,
     QuizHandler,
     QuizAnswerHandler,
+    DefinitionHandler,
     SessionEndedRequestHandler
   )
   .addErrorHandlers(ErrorHandler)
@@ -215,10 +259,14 @@ const askQuestion = handlerInput => {
   return speechQuestion
 }
 
+const getTextDescription = (item: ICharacter): string =>
+  `${item.voiceActorName}さんは${item.characterName}の声優です。`
+
+const getSpeechDescription = (item: ICharacter): string =>
+  `${item.voiceActorKanaName}さんは${item.characterKanaName}の声優です。`
+
 const getQuestion = (counter: number, item: ICharacter): string =>
-  `第${counter}問。<sub alias="${item.characterKanaName}">${
-    item.characterName
-  }</sub>の声優は誰でしょう？`
+  `第${counter}問。${item.characterKanaName}の声優は誰でしょう？`
 
 const getDisplayableQuestion = (counter: number, item: ICharacter): string =>
   `第${counter}問。${item.characterName}の声優は誰でしょう？`
@@ -252,6 +300,24 @@ const getDisplayalbeAnswer = (item: ICharacter) =>
 const getCurrentScore = (score: number) => `現在の正解スコアは${score}です。`
 
 const getFinalScore = (score: number) => `最終スコアは${score}です。`
+
+const getItem = (slots: { [key: string]: Slot }): ICharacter | string => {
+  let slotValue = ''
+  for (const slot in slots) {
+    slotValue = slots[slot].value
+    const items = data.filter(el => el.voiceActorName === slotValue)
+
+    if (items.length > 0) {
+      return items[0]
+    }
+  }
+
+  // アイマス声優ではない入力を受け付けた場合、slot値がそのまま返る
+  return slotValue
+}
+
+const getBadAnswer = (item: string): string =>
+  `${item}さんのことはよくわかりませんでした`
 
 const supportsDisplay = (handlerInput: Alexa.HandlerInput) => {
   const hasDisplay =
