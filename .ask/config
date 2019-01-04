@@ -10,7 +10,7 @@
         },
         "interactionModel": {
           "ja-JP": {
-            "eTag": "07e7c831d9144be2a71d4965589823d4"
+            "eTag": "20f569d59b125742cff1f696b3cd9ab2"
           }
         },
         "lambda": [
@@ -23,7 +23,7 @@
             "codeUri": "lambda/custom",
             "functionName": "million-live-quiz",
             "handler": "index.handler",
-            "revisionId": "eee0afda-46dc-41e7-ab29-94c277f39754",
+            "revisionId": "ac314510-26b9-4117-b546-88bd2c3baeb9",
             "runtime": "nodejs8.10"
           }
         ]
