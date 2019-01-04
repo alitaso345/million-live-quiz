@@ -3,19 +3,49 @@
     "publishingInformation": {
       "locales": {
         "ja-JP": {
-          "name": "ミリオンクイズ"
+          "summary": "アイドルマスターミリオンライブに関するクイズを出すスキルです",
+          "examplePhrases": [
+            "アレクサ、ミリオンクイズを起動",
+            "アレクサ、ミリオンクイズを実行",
+            "アレクサ、ミリオンクイズを開いて"
+          ],
+          "keywords": [
+            "クイズ"
+          ],
+          "name": "ミリオンクイズ",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/2200/61c29f4a9f42412292f84b29533b2af2/APP_ICON?versionId=OxjV1nZG7LPhV5fIAGtaFc_Q5FWGsXIo&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1546663378&Signature=ycUFuhOlQWCw6F4ZuWP9oj3RkgU%3D",
+          "description": "アイドルマスターミリオンライブに関するクイズを出すスキルです",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/55b2/83577d64dd2542fa942c7255a52158cf/APP_ICON_LARGE?versionId=Pp0hYbP6gU5Ac5iNeQy45BZZDy5OIR9q&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1546663378&Signature=d9GRO4MooGcYcW1UhzdY3rE7T3Q%3D"
         }
-      }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "「アレクサ、ミリオンクイズを起動して」というとスキルが起動してます。",
+      "category": "KNOWLEDGE_AND_TRIVIA",
+      "distributionCountries": []
     },
     "apis": {
       "custom": {
         "endpoint": {
-          "sourceDir": "lambda/custom",
           "uri": "arn:aws:lambda:ap-northeast-1:952846470417:function:million-live-quiz"
         },
-        "interfaces": []
+        "interfaces": [
+          {
+            "type": "RENDER_TEMPLATE",
+            "minimumTemplateVersion": "1.0"
+          },
+          {
+            "type": "ALEXA_PRESENTATION_APL"
+          }
+        ]
       }
     },
-    "manifestVersion": "1.0"
+    "manifestVersion": "1.0",
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "isExportCompliant": true,
+      "containsAds": false,
+      "isChildDirected": false,
+      "usesPersonalInfo": false
+    }
   }
 }
