@@ -215,3 +215,14 @@ const getDisplayalbeAnswer = (item: ICharacter) =>
 const getCurrentScore = (score: number) => `現在の正解スコアは${score}です。`
 
 const getFinalScore = (score: number) => `最終スコアは${score}です。`
+
+const supportsDisplay = (handlerInput: Alexa.HandlerInput) => {
+  const hasDisplay =
+    handlerInput.requestEnvelope.context &&
+    handlerInput.requestEnvelope.context.System &&
+    handlerInput.requestEnvelope.context.System.device &&
+    handlerInput.requestEnvelope.context.System.device.supportedInterfaces &&
+    handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display
+
+    return hasDisplay
+}
