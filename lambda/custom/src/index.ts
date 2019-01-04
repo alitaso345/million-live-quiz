@@ -11,6 +11,7 @@ const states = {
   START: `_START`,
   QUIZ: `_QUIZ`
 }
+const exitSkillMessage = 'プロデューサーさん、遊んでくれてありがとう'
 const speechConsCorrect = [
   'やった',
   'やったあ',
@@ -159,7 +160,10 @@ const QuizAnswerHandler = {
           textContent: primaryText
         })
       }
-      return response.speak(speakOutput).withShouldEndSession(true).getResponse()
+      return response
+        .speak(speakOutput)
+        .withShouldEndSession(true)
+        .getResponse()
     }
   }
 }
@@ -219,6 +223,24 @@ const SessionEndedRequestHandler = {
   }
 }
 
+const ExitHandler: Alexa.RequestHandler = {
+  canHandle(handleInput) {
+    const request = handleInput.requestEnvelope.request
+    return (
+      request.type === 'IntentRequest' &&
+      (request.intent.name === 'AMAZON.StopIntent' ||
+        request.intent.name === 'AMAZON.PauseIntent' ||
+        request.intent.name === 'AMAZON.CancelIntent')
+    )
+  },
+  handle(handleInput) {
+    return handleInput.responseBuilder
+      .speak(exitSkillMessage)
+      .withShouldEndSession(true)
+      .getResponse()
+  }
+}
+
 const HelpHandler: Alexa.RequestHandler = {
   canHandle(handlerInput) {
     const request = handlerInput.requestEnvelope.request
@@ -255,6 +277,7 @@ export const handler = skillBuilder
     HelpHandler,
     QuizAnswerHandler,
     DefinitionHandler,
+    ExitHandler,
     SessionEndedRequestHandler
   )
   .addErrorHandlers(ErrorHandler)
