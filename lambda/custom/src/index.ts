@@ -52,6 +52,7 @@ const QuizHandler: Alexa.RequestHandler = {
   },
   handle(handleInput) {
     const attributes = handleInput.attributesManager.getSessionAttributes()
+    const response = handleInput.responseBuilder
     attributes.state = states.QUIZ
     attributes.counter = 0
     attributes.quizeScore = 0
@@ -60,7 +61,21 @@ const QuizHandler: Alexa.RequestHandler = {
     const speakOutput = startQuizMessage + speechQuestion
     const repromptOutput = speechQuestion
 
-    return handleInput.responseBuilder
+    if (supportsDisplay(handleInput)) {
+      const title = `第${attributes.counter}問`
+      const primaryText = new Alexa.PlainTextContentHelper()
+        .withPrimaryText(`${attributes.quizItem.characterName}の声優は？`)
+        .getTextContent()
+      response.addRenderTemplateDirective({
+        type: 'BodyTemplate1',
+        token: 'Question',
+        backButton: 'HIDDEN',
+        title,
+        textContent: primaryText
+      })
+    }
+
+    return response
       .speak(speakOutput)
       .reprompt(repromptOutput)
       .getResponse()
@@ -106,16 +121,40 @@ const QuizAnswerHandler = {
       speakOutput += speechQuestion
       repromptOutput += speechQuestion
 
+      if (supportsDisplay(handleInput)) {
+        const title = `第${attributes.counter}問`
+        const primaryText = new Alexa.PlainTextContentHelper()
+          .withPrimaryText(`${attributes.quizItem.characterName}の声優は？`)
+          .getTextContent()
+        response.addRenderTemplateDirective({
+          type: 'BodyTemplate1',
+          token: 'Question',
+          backButton: 'HIDDEN',
+          title,
+          textContent: primaryText
+        })
+      }
+
       return response
         .speak(speakOutput)
         .reprompt(repromptOutput)
-        .withSimpleCard('答え', getDisplayalbeAnswer(item))
         .getResponse()
     } else {
       speakOutput += getFinalScore(attributes.quizeScore)
-      return response.speak(speakOutput)
-        .withSimpleCard('答え', getDisplayalbeAnswer(item))
-        .getResponse()
+      if (supportsDisplay(handleInput)) {
+        const title = `プロデューサーさん、遊んでくれてありがとう！`
+        const primaryText = new Alexa.PlainTextContentHelper()
+          .withPrimaryText(getFinalScore(attributes.quizeScore))
+          .getTextContent()
+        response.addRenderTemplateDirective({
+          type: 'BodyTemplate1',
+          token: 'Question',
+          backButton: 'HIDDEN',
+          title,
+          textContent: primaryText
+        })
+      }
+      return response.speak(speakOutput).getResponse()
     }
   }
 }
@@ -221,7 +260,8 @@ const supportsDisplay = (handlerInput: Alexa.HandlerInput) => {
     handlerInput.requestEnvelope.context.System &&
     handlerInput.requestEnvelope.context.System.device &&
     handlerInput.requestEnvelope.context.System.device.supportedInterfaces &&
-    handlerInput.requestEnvelope.context.System.device.supportedInterfaces.Display
+    handlerInput.requestEnvelope.context.System.device.supportedInterfaces
+      .Display
 
-    return hasDisplay
+  return hasDisplay
 }
