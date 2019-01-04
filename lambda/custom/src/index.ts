@@ -57,7 +57,7 @@ const QuizHandler: Alexa.RequestHandler = {
     attributes.counter = 0
     attributes.quizeScore = 0
 
-    const { speechQuestion } = askQuestion(handleInput)
+    const speechQuestion = askQuestion(handleInput)
     const speakOutput = startQuizMessage + speechQuestion
     const repromptOutput = speechQuestion
 
@@ -117,14 +117,17 @@ const QuizAnswerHandler = {
 
     if (attributes.counter < 5) {
       speakOutput += getCurrentScore(attributes.quizeScore)
-      const { speechQuestion } = askQuestion(handleInput)
+      const speechQuestion = askQuestion(handleInput)
       speakOutput += speechQuestion
       repromptOutput += speechQuestion
 
       if (supportsDisplay(handleInput)) {
-        const title = `第${attributes.counter}問`
+        const title = `正解と次の問題`
         const primaryText = new Alexa.PlainTextContentHelper()
-          .withPrimaryText(`${attributes.quizItem.characterName}の声優は？`)
+          .withPrimaryText(
+            getDisplayalbeAnswer(item) +
+              getDisplayableQuestion(attributes.counter, attributes.quizItem)
+          )
           .getTextContent()
         response.addRenderTemplateDirective({
           type: 'BodyTemplate1',
@@ -208,12 +211,8 @@ const askQuestion = handlerInput => {
   handlerInput.attributesManager.setSessionAttributes(attributes)
 
   const speechQuestion = getQuestion(attributes.counter, item)
-  const displayableQuestion = getDisplayableQuestion(attributes.counter, item)
 
-  return {
-    speechQuestion: speechQuestion,
-    displayableQuestion: displayableQuestion
-  }
+  return speechQuestion
 }
 
 const getQuestion = (counter: number, item: ICharacter): string =>
