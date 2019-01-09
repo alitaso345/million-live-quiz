@@ -5,8 +5,8 @@ import data from './data'
 const skillBuilder = Alexa.SkillBuilders.custom()
 const startQuizMessage = 'ミリオンライブの声優に関するクイズを5問出題します。'
 const welcomeMessage =
-  'アイドルマスターミリオンライブのクイズで遊べるスキルです、「クイズを開始」と言うとスタートです。'
-const helpMessage = '「クイズを開始」というと、クイズをスタートできます。'
+  'アイドルマスターミリオンライブの声優に関するクイズで遊べるスキルです、「クイズを開始」と言うとスタートです。'
+const helpMessage = 'アイドルマスターミリオンライブの声優に関するクイズで遊べるスキルです。「クイズを開始」というと、クイズをスタートできます。'
 const states = {
   START: `_START`,
   QUIZ: `_QUIZ`
