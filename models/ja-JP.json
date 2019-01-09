@@ -27,6 +27,11 @@
           "name": "QuizIntent",
           "slots": [],
           "samples": [
+            "クイズスタート",
+            "クイズをスタート",
+            "クイズを始めて",
+            "クイズ開始",
+            "クイズを開始して",
             "クイズを開始"
           ]
         },
@@ -39,6 +44,13 @@
             }
           ],
           "samples": [
+            "{voiceActor} だと予想",
+            "{voiceActor} じゃないかな",
+            "{voiceActor} だよ",
+            "答えは {voiceActor}",
+            "正解は {voiceActor}",
+            "{voiceActor} だと思う",
+            "{voiceActor} かな",
             "{voiceActor} ちゃん",
             "{voiceActor} さん",
             "{voiceActor}"

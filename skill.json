@@ -5,21 +5,21 @@
         "ja-JP": {
           "summary": "アイドルマスターミリオンライブに関するクイズを出すスキルです",
           "examplePhrases": [
-            "アレクサ、ミリオンクイズを起動",
-            "アレクサ、ミリオンクイズを実行",
+            "アレクサ、ミリオンクイズを起動して",
+            "アレクサ、ミリオンクイズを実行して",
             "アレクサ、ミリオンクイズを開いて"
           ],
           "keywords": [
             "クイズ"
           ],
           "name": "ミリオンクイズ",
-          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/2200/61c29f4a9f42412292f84b29533b2af2/APP_ICON?versionId=OxjV1nZG7LPhV5fIAGtaFc_Q5FWGsXIo&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1546663378&Signature=ycUFuhOlQWCw6F4ZuWP9oj3RkgU%3D",
-          "description": "アイドルマスターミリオンライブに関するクイズを出すスキルです",
-          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/55b2/83577d64dd2542fa942c7255a52158cf/APP_ICON_LARGE?versionId=Pp0hYbP6gU5Ac5iNeQy45BZZDy5OIR9q&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1546663378&Signature=d9GRO4MooGcYcW1UhzdY3rE7T3Q%3D"
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/a8d9/bf88804d1b0b4fba9963478bcce0580d/APP_ICON?versionId=ekZ3FVUaZIP3ENYkwhbPMi512.hdhPIz&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1547121609&Signature=w7UsFNINHAnut952eNvjuDg0Shg%3D",
+          "description": "アイドルマスターミリオンライブの声優に関するクイズを出すスキルです。\n「アレクサ、ミリオンクイズを起動して」と言うと、スキルを起動できます。\n\nアレクサが「春日未来の声優は誰でしょう？」のように出題しますので、声優のフルネームを答えてください。",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/f0ad/48110c5d8ee54d479fc995cada2a8625/APP_ICON_LARGE?versionId=6Ss.sMS9MEkVJG4wJQrhfdfYdzpi2CWF&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1547121609&Signature=y1xP6t1uLRmS8TdUFOmrLK2dRrE%3D"
         }
       },
       "isAvailableWorldwide": true,
-      "testingInstructions": "「アレクサ、ミリオンクイズを起動して」というとスキルが起動してます。",
+      "testingInstructions": "「アレクサ、ミリオンクイズを起動して」というとスキルが起動してます。\nスキル起動後、「クイズを開始」というとクイズが始まります。\n\nアイドルマスターミリオンライブの声優に関するクイズが始まりますので、声優の名前を答えてください。",
       "category": "KNOWLEDGE_AND_TRIVIA",
       "distributionCountries": []
     },

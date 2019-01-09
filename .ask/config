@@ -23,7 +23,7 @@
             "codeUri": "lambda/custom",
             "functionName": "million-live-quiz",
             "handler": "index.handler",
-            "revisionId": "ac314510-26b9-4117-b546-88bd2c3baeb9",
+            "revisionId": "46aabc52-a119-4c6a-8379-744df3d57dfd",
             "runtime": "nodejs8.10"
           }
         ]
