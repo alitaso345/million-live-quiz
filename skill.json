@@ -26,7 +26,8 @@
     "apis": {
       "custom": {
         "endpoint": {
-          "uri": "arn:aws:lambda:ap-northeast-1:952846470417:function:million-live-quiz"
+          "uri": "arn:aws:lambda:ap-northeast-1:952846470417:function:million-live-quiz",
+          "sourceDir": "lambda/custom"
         },
         "interfaces": [
           {
